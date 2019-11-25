@@ -32,7 +32,7 @@
   #print {
       position: fixed;
       margin-top: 13px;
-      margin-left: 28%;
+      margin-left: 21%;
       cursor: pointer;
   }
 
@@ -133,7 +133,7 @@
 #search {
     margin-bottom: 20px;
     text-align: center;
-    margin-left: 30%;
+    margin-left: 20%;
     padding: 10px;
     border-radius: 8px;
     border: 1px solid lightgray;
