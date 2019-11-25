@@ -2,6 +2,11 @@
     font-family: 'Roboto', sans-serif;
 }  
 
+.pen {
+    float: right;
+    margin-top: 10px;
+}
+
 #editor{
     max-width: 50%;
     width: 50%;
@@ -11,7 +16,7 @@
     min-height: 90%;
     margin-left: 30%;
     margin-top: 30px;
-    background-color: white;
+    background-color: #fff59d;
     box-shadow: 5px 10px 8px #888888;
   }
 
@@ -25,7 +30,7 @@
 
   .ql-toolbar.ql-snow {
       border: none;
-      border-bottom: 1px solid lightgray;
+      border-bottom: 1px solid black;
   }
 
 
