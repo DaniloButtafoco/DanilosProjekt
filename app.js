@@ -1,9 +1,9 @@
 let noteList = [];
-const savebtn = document.querySelector("#sideBar > i.fas.fa-plus")
+const savebtn = document.querySelector(".fa-plus");
 const justText = document.querySelector('#justText');
 const input = document.querySelector('#search');
 const saveToFav = document.querySelector('#saveFav');
-const favIcon = document.querySelector("#sideBar > i.far.fa-heart");
+const favIcon = document.querySelector(".fa-heart");
 const print = document.querySelector('#print');
 const openSideBar = document.querySelector('.fa-folder');
 const openSideBarLogo = document.querySelector('.logo');
@@ -19,15 +19,15 @@ function closeNav() {
   document.getElementById("secondSideBar").style.width = "0";
 }
 
-openSideBar.addEventListener ('click', () => {
+openSideBar.addEventListener('click', () => {
   openNav();
 })
 
-openSideBarLogo.addEventListener ('click', () => {
+openSideBarLogo.addEventListener('click', () => {
   openNav();
 })
 
-closeBtn.addEventListener ('click', () => {
+closeBtn.addEventListener('click', () => {
   closeNav();
 })
 
@@ -67,6 +67,7 @@ savebtn.addEventListener('click', () => {
     title: editor.getText(0, 10),
     contents: editor.getContents(),
     favourite: false,
+    deleted: false,
     started: true
   };
 
@@ -81,16 +82,16 @@ function createDiv(note) {
   newDiv.id = note.id;
   newDiv.classList.add('div');
   let newDivList = {
-    title: `<span><strong>${note.title}</strong></span>`,
+    title: `<span>${note.title}</span>`,
     date: `<strong>Datum:</strong><span>${Date(note.id)}</span>`,
     icon: `<span class='far fa-heart ${note.favourite ? 'fas fa-heart' : ''}'></span>`,
     trash: `<span class='far fa-trash-alt delete'></span>`
   };
   newDiv.innerHTML = ` ${newDivList.title} ${newDivList.trash} ${newDivList.icon} <br> ${newDivList.date}`;
-  
-  if(document.readyState === "complete" || document.readyState === "loaded"){
+
+  if (document.readyState === "complete" || document.readyState === "loaded") {
     justText.insertBefore(newDiv, justText.childNodes[0])
-  } else {justText.appendChild(newDiv)}
+  } else { justText.appendChild(newDiv) }
 }
 
 // Load localstorage när sidan laddar
@@ -102,6 +103,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
     modal.style.display = "block";
   }
   loadNotes();
+  console.log(noteList)
 });
 
 //Laddar info från local storage
@@ -130,126 +132,135 @@ function saveNotes() {
 
 //Renderar dokumentet samt div när sidan laddas om
 function renderDocs() {
-  noteList.forEach(note => createDiv(note));
-}
+  noteList.forEach(note => {
+    if (note.deleted === false) {
+      createDiv(note)
+    }
+  })
+  }
 
 //Click event för divarna
 justText.addEventListener('click', e => {
-  const newDiv = document.querySelectorAll('#justText > div');
-  const loadData = JSON.parse(localStorage.getItem('quire')).notes;
-  let noteID = e.target.closest("div").id;
-  selectedNote = noteList.find(note => note.id === Number(noteID));
-  
-  if (e.target.classList.contains('far')) {
-    selectedNote.favourite = !selectedNote.favourite
-    saveNotes();
-    e.target.classList.toggle('fas'); 
+    const newDiv = document.querySelectorAll('#justText > div');
+    const loadData = JSON.parse(localStorage.getItem('quire')).notes;
+    let noteID = e.target.closest("div").id;
+    selectedNote = noteList.find(note => note.id === Number(noteID));
 
-  } else {
-    for (let i = 0; i < loadData.length; i++) {
-      if (loadData[i].id == e.target.parentElement.id) {
-        editor.setContents(loadData[i].contents);
-        newDiv.forEach(event => {
-          if (e.target.parentElement === event || e.target === event) {
-            event.classList.add('picked');
-          } else { event.classList.remove('picked') }
-        })
+    if (e.target.classList.contains('far')) {
+      selectedNote.favourite = !selectedNote.favourite
+      saveNotes();
+      e.target.classList.toggle('fas');
+
+    } else {
+      for (let i = 0; i < loadData.length; i++) {
+        if (loadData[i].id == e.target.parentElement.id) {
+          editor.setContents(loadData[i].contents);
+          newDiv.forEach(event => {
+            if (e.target.parentElement === event || e.target === event) {
+              event.classList.add('picked');
+            } else { event.classList.remove('picked') }
+          })
+        }
       }
     }
-  }
-}) 
+  })
 
 function search() {
-  let input = document.querySelector('#search');
-  let filter = input.value.toUpperCase();
-  for (let i = 0; i < justText.childNodes.length; i++) {
-    textValue = justText.childNodes[i].childNodes[1].textContent || justText.childNodes[i].childNodes[1].innerText;
-    if (textValue.toUpperCase().indexOf(filter) > -1) {
-      justText.childNodes[i].style.display = "";
-    } else {
-      justText.childNodes[i].style.display = 'none';
+      let input = document.querySelector('#search');
+      let filter = input.value.toUpperCase();
+      for (let i = 0; i < justText.childNodes.length; i++) {
+        textValue = justText.childNodes[i].childNodes[1].textContent || justText.childNodes[i].childNodes[1].innerText;
+        if (textValue.toUpperCase().indexOf(filter) > -1) {
+          justText.childNodes[i].style.display = "";
+        } else {
+          justText.childNodes[i].style.display = 'none';
+        }
+      }
     }
-  }
-}
 
 input.addEventListener('keyup', e => {
-  search();
-  input.addEventListener('click', e => {
-    justText.childNodes.forEach(e => { e.style.display = "block" })
-  })
-})
+      search();
+      input.addEventListener('click', e => {
+        justText.childNodes.forEach(e => { e.style.display = "block" })
+      })
+    })
 
 /* Popup */
 
 // Get the modal
 var modal = document.getElementById("myModal");
-// Get the button that opens the modal
-var btn = document.getElementById("myBtn");
-// Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
+  // Get the button that opens the modal
+  var btn = document.getElementById("myBtn");
+  // Get the <span> element that closes the modal
+  var span = document.getElementsByClassName("close")[0];
 
-// When the user clicks the button, open the modal
-window.onload = function () {
-  //modal.style.display = "block";
-}
-// When the user clicks on <span> (x), close the modal
-span.onclick = function () {
-  modal.style.display = "none";
-}
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function (event) {
-  if (event.target == modal) {
+  // When the user clicks the button, open the modal
+  window.onload = function () {
+    //modal.style.display = "block";
+  }
+  // When the user clicks on <span> (x), close the modal
+  span.onclick = function () {
     modal.style.display = "none";
   }
-}
-
-function displayChecked() {
-  let checkboxes = document.querySelectorAll('.fav > #justText > div > input');
-  let arrayOfCheckboxes = Array.from(checkboxes);
-  arrayOfCheckboxes.map(e => {
-    if (e.checked) { e.parentElement.style.display = 'block' }
-    else { e.parentElement.style.display = 'none' }
-  })
-}
-
-let clicks = 0;
-favIcon.addEventListener('click', e => {
-  let arrayOfDivs = Array.from(justText.childNodes);
-  clicks += 1;
-  
-
-  console.log(clicks);
-  arrayOfDivs.forEach(div => {
-    let noteID = div.id;
-    selectedNote = noteList.find(note => note.id === Number(noteID));
-    if(clicks % 2 === 0) {
-    if(selectedNote.favourite){
-      div.style.display = "block"
-    } else { div.style.display = "none"}
-    } else {div.style.display ="block"}
-
-  })
-})
-
-function printDiv() {
-  var divContents = document.querySelector(".ql-editor").innerHTML;
-  var a = window.open('', '', 'height=1200, width=1200');
-  a.document.write('<html>');
-  a.document.write('<body > ');
-  a.document.write(divContents);
-  a.document.write('</body></html>');
-  a.document.close();
-  a.print();
-}
-
-print.addEventListener('click', () => {
-  printDiv();
-})
-
-justText.addEventListener('click', e => {
-  if (e.target.classList.contains("delete")) {
-    e.target.parentElement.remove();
-    // localStorage.removeItem('quire');
-    console.log(e.target.parentElement.id)
+  // When the user clicks anywhere outside of the modal, close it
+  window.onclick = function (event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
   }
-})
+
+  function displayChecked() {
+    let checkboxes = document.querySelectorAll('.fav > #justText > div > input');
+    let arrayOfCheckboxes = Array.from(checkboxes);
+    arrayOfCheckboxes.map(e => {
+      if (e.checked) { e.parentElement.style.display = 'block' }
+      else { e.parentElement.style.display = 'none' }
+    })
+  }
+
+  let clicks = 0;
+  favIcon.addEventListener('click', e => {
+    let arrayOfDivs = Array.from(justText.childNodes);
+    clicks += 1;
+
+
+    console.log(clicks);
+    arrayOfDivs.forEach(div => {
+      let noteID = div.id;
+      selectedNote = noteList.find(note => note.id === Number(noteID));
+      if (clicks % 2 === 0) {
+        if (selectedNote.favourite) {
+          div.style.display = "block"
+        } else { div.style.display = "none" }
+      } else { div.style.display = "block" }
+
+    })
+  })
+
+  function printDiv() {
+    var divContents = document.querySelector(".ql-editor").innerHTML;
+    var a = window.open('', '', 'height=1200, width=1200');
+    a.document.write('<html>');
+    a.document.write('<body > ');
+    a.document.write(divContents);
+    a.document.write('</body></html>');
+    a.document.close();
+    a.print();
+  }
+
+  print.addEventListener('click', () => {
+    printDiv();
+  })
+
+  justText.addEventListener('click', e => {
+    console.log(noteList)
+    let selectedNote = noteList.find(note => note.id == e.target.closest("div").id);
+    if (e.target.classList.contains("delete")) {
+      selectedNote.deleted = true;
+      e.target.parentElement.remove();
+      localStorage.removeItem('quire');
+      console.log(e.target.parentElement.id)
+      clearEditor()
+      saveNotes()
+    }
+  })
