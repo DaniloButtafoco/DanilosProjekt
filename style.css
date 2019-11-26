@@ -3,6 +3,12 @@ body {
       font-family: 'Roboto', sans-serif;
 }
 
+@media screen and (min-width: 600px){
+    .ul {
+     -webkit-flex-direction: row;
+      flex-direction: column;
+    }
+
 .navcontainer {
     display: flex;
 }
@@ -11,7 +17,7 @@ body {
 
 .pen { 
     float: right;
-    margin-top: 10px;
+    margin-top: 3em;
     max-width: 25%;
 }
 
@@ -20,12 +26,11 @@ body {
 #editor{
     max-width: 50%;
     width: 50%;
-    margin-left: 130px;
     position: fixed;
     transition: 1s;
     min-height: 90%;
     margin-left: 30%;
-    margin-top: 30px;
+    margin-top: 3em;
     background-color: #fff59d;
     box-shadow: 5px 10px 8px #888888;
   }
@@ -41,8 +46,8 @@ body {
 
   #print {
       position: fixed;
-      margin-top: 13px;
-      margin-left: 28%;
+      margin-top: 0.8em;
+      margin-left: 25em;
       cursor: pointer;
   }
 
@@ -53,10 +58,11 @@ body {
 /*Sidans logga*/
 
 .logo {
-    max-width: 70%;
-    max-height: 70%;
+    max-width: 5em;
+    max-height: 5em;
     margin-left: 15px;
     cursor: pointer;
+    border-bottom: 1px solid grey;
 }
 
 /* Fixed sideBar */
@@ -80,36 +86,36 @@ body {
 
 ul {
     list-style-type: none;
-    margin: 0;
     padding: 0;
     display: flex;
     flex-direction: column;
+    margin-right: 10px;
 }
 
 li {
-    padding: 0;
-    margin-top: 40%;
+    margin-top: 15em;
     cursor: pointer;
 } 
 
 li:hover {
- transition: 0.5s;
- margin-left: 10px;
+ transition: 0.3ms;
+ margin-left: 15px;
 }
 
 
 /* Second Sidebar */
 
+
 #search {
     margin-bottom: 20px;
     text-align: center;
-    margin-left: 25%;
     padding: 10px;
     border-radius: 8px;
     border: 1px solid lightgray;
     cursor: pointer;
     display: flex;
     flex-direction: column;
+    margin-left: 4em;
 }
 
 #search:hover {
@@ -117,13 +123,14 @@ li:hover {
     transition: 1s;
 }
 
+
 .secondSideBar {
     height: 100%;
     width: 0;
     position: fixed;
     z-index: 1;
     top: 0;
-    left: 111px;
+    left: 6.6em;
     background-color: #fafafa;
     overflow-x: hidden;
     transition: 1s;
@@ -133,10 +140,10 @@ li:hover {
 
 .div {
    padding: 10px 50px 8px 5px;
-    word-break: break-all;
+   word-break: break-all;
    transition: 0.3s;
    width: 250px;
-   height: 100px;
+   height: 7em;
    cursor: pointer;
    border-bottom: 1px solid lightgray;
    letter-spacing: 0.8px;
@@ -144,7 +151,7 @@ li:hover {
 
 .div > .fa-heart, .fa-trash-alt {
     float: right;
-    margin-left: 10px;
+    margin-left: 1em;
 }
 
 .picked {
@@ -152,7 +159,7 @@ li:hover {
    word-break: break-all;
    transition: 0.3s;
    width: 250px;
-   height: 100px;
+   height: 7em;
    cursor: pointer;
    border-bottom: 1px solid lightgray;
    background-color: #c8e6c9;
@@ -175,7 +182,8 @@ li:hover {
 }
 
 .closebtn {
-    margin-left: 250px;
+    margin-left: 17em;
+    position: static;
 }
 
 /* Popup */

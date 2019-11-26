@@ -82,7 +82,7 @@ function createDiv(note) {
   newDiv.id = note.id;
   newDiv.classList.add('div');
   let newDivList = {
-    title: `<span>${note.title}</span>`,
+    title: `<span><strong>${note.title}</strong></span>`,
     date: `<strong>Datum:</strong><span>${Date(note.id)}</span>`,
     icon: `<span class='far fa-heart ${note.favourite ? 'fas fa-heart' : ''}'></span>`,
     trash: `<span class='far fa-trash-alt delete'></span>`
