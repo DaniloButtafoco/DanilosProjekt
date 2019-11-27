@@ -3,11 +3,6 @@ body {
       font-family: 'Roboto', sans-serif;
 }
 
-@media screen and (min-width: 600px){
-    .ul {
-     -webkit-flex-direction: row;
-      flex-direction: column;
-    }
 
 .navcontainer {
     display: flex;
@@ -60,7 +55,8 @@ body {
 .logo {
     max-width: 5em;
     max-height: 5em;
-    margin-left: 15px;
+    margin-left: 1em;
+    margin-right: 1em;
     cursor: pointer;
     border-bottom: 1px solid grey;
 }
@@ -90,11 +86,12 @@ ul {
     display: flex;
     flex-direction: column;
     margin-right: 10px;
-}
+ }
 
 li {
     margin-top: 15em;
     cursor: pointer;
+    margin-right: 1em;
 } 
 
 li:hover {
@@ -105,7 +102,6 @@ li:hover {
 
 /* Second Sidebar */
 
-
 #search {
     margin-bottom: 20px;
     text-align: center;
@@ -113,9 +109,11 @@ li:hover {
     border-radius: 8px;
     border: 1px solid lightgray;
     cursor: pointer;
+    margin-left: 4em;
+    margin-right: 4em;
     display: flex;
     flex-direction: column;
-    margin-left: 4em;
+    position: relative;
 }
 
 #search:hover {
@@ -143,7 +141,7 @@ li:hover {
    word-break: break-all;
    transition: 0.3s;
    width: 250px;
-   height: 7em;
+   height: 5em;
    cursor: pointer;
    border-bottom: 1px solid lightgray;
    letter-spacing: 0.8px;
@@ -159,7 +157,7 @@ li:hover {
    word-break: break-all;
    transition: 0.3s;
    width: 250px;
-   height: 7em;
+   height: 5em;
    cursor: pointer;
    border-bottom: 1px solid lightgray;
    background-color: #c8e6c9;
